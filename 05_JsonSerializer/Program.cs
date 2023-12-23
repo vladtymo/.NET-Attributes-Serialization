@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace _05_JsonSerializer
 {
     // Json Serializer don`t need attribute [Serializable]
-    //[JsonIncludePrivateFields]
+    // JSON Serializer ignore private members by default
     public class Person
     {
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace _05_JsonSerializer
         [JsonInclude]
         public int count = 100;
 
-        // JSON Serializer ignore private members by default
+        [JsonInclude] // - includes any non-public modifier, such as private, protected or internal (since .NET 8)
         private int _identNumber;
 
         [NonSerialized]
