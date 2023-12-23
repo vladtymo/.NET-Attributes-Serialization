@@ -15,14 +15,14 @@ namespace _03_Collection_Serialize
         [Serializable]
         public class Passport
         {
-            public int Number { get; set; }
+            public string Number { get; set; }
             public Passport()
             {
-                Number = 600045;
+                Number = Guid.NewGuid().ToString();
             }
             public override string ToString()
             {
-                return Number.ToString();
+                return Number;
             }
         }
 
@@ -59,6 +59,8 @@ namespace _03_Collection_Serialize
                 new Person(870312) { Name = "John", Age = 23 }
             };
 
+            var person = new Person(870312) { Name = "Oleg", Age = 44 };
+
             BinaryFormatter binFormat = new BinaryFormatter();
 
             try
@@ -67,20 +69,24 @@ namespace _03_Collection_Serialize
                 using (Stream fStream = File.Create("test.bin"))
                 {
                     binFormat.Serialize(fStream, persons);
+                    binFormat.Serialize(fStream, person);
                 }
                 WriteLine("BinarySerialize OK!\n");
 
 
                 // deserialization
                 List<Person> list = null;
+                Person one = null;
                 using (Stream fStream = File.OpenRead("test.bin"))
                 {
                     list = (List<Person>)binFormat.Deserialize(fStream);
+                    one = (Person)binFormat.Deserialize(fStream);
                 }
                 foreach (Person item in list)
                 {
                     WriteLine(item);
                 }
+                Console.WriteLine(one);
             }
             catch (Exception ex)
             {

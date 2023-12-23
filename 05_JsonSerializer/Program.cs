@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace _05_JsonSerializer
 {
     // Json Serializer don`t need attribute [Serializable]
+    //[JsonIncludePrivateFields]
     public class Person
     {
         public string Name { get; set; }
         public int Age { get; set; }
-        int _identNumber;
+
+        [JsonIgnore]
+        public int Test { get; set; } = 123;
+
+        [JsonInclude]
+        public int count = 100;
+
+        // JSON Serializer ignore private members by default
+        private int _identNumber;
 
         [NonSerialized]
         const string Planet = "Earth";
