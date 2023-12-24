@@ -83,6 +83,8 @@ namespace _07_music_app
             string json = File.ReadAllText("album_data.json");
             Album? loaded = JsonSerializer.Deserialize<Album>(json);
 
+            if (loaded == null) return;
+
             this.Name = loaded.Name;
             this.ArtistName = loaded.ArtistName;
             this.PublishYear = loaded.PublishYear;
@@ -101,13 +103,18 @@ namespace _07_music_app
             album.InputData();
             album.Show();
 
+            // serialize album
             album.Save();
 
+            // clear all album data
             album.Name = "";
             album.PublishYear = 0;
             album.Songs.Clear();
+            Console.WriteLine("All album data was deleted!");
 
+            // deserialize album
             album.Load();
+            Console.WriteLine("All album data was restored!");
 
             album.Show();
         }

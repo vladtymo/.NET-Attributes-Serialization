@@ -59,8 +59,6 @@ namespace _03_Collection_Serialize
                 new Person(870312) { Name = "John", Age = 23 }
             };
 
-            var person = new Person(870312) { Name = "Oleg", Age = 44 };
-
             BinaryFormatter binFormat = new BinaryFormatter();
 
             try
@@ -69,7 +67,6 @@ namespace _03_Collection_Serialize
                 using (Stream fStream = File.Create("test.bin"))
                 {
                     binFormat.Serialize(fStream, persons);
-                    binFormat.Serialize(fStream, person);
                 }
                 WriteLine("BinarySerialize OK!\n");
 
@@ -80,7 +77,6 @@ namespace _03_Collection_Serialize
                 using (Stream fStream = File.OpenRead("test.bin"))
                 {
                     list = (List<Person>)binFormat.Deserialize(fStream);
-                    one = (Person)binFormat.Deserialize(fStream);
                 }
                 foreach (Person item in list)
                 {

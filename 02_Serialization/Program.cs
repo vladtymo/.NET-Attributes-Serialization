@@ -14,9 +14,10 @@ namespace _02_Serialization
         [Serializable]
         public class Person
         {
+            private int _identNumber;
+
             public string Name { get; set; }
             public int Age { get; set; }
-            private int _identNumber;
 
             [NonSerialized]
             const string PLANET = "Earth";
@@ -40,6 +41,9 @@ namespace _02_Serialization
             };
 
             BinaryFormatter binFormat = new BinaryFormatter();
+
+            // binFormat.Serialize();   - convert object to bytes and put to a stream
+            // binFormat.Deserialize(); - read data from a stream and return object
 
             try
             {

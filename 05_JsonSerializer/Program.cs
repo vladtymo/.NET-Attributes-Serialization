@@ -22,7 +22,7 @@ namespace _05_JsonSerializer
         [JsonInclude] // - includes any non-public modifier, such as private, protected or internal (since .NET 8)
         private int _identNumber;
 
-        [NonSerialized]
+        [JsonIgnore]
         const string Planet = "Earth";
 
         public Person() { }
